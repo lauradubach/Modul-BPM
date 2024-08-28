@@ -11,13 +11,13 @@
         <bpmn:flowNodeRef>Activity_1nrod2d</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1q98jkk</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_19wp8n7</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0enhwrt</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_18kgp8q</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0coyczp</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0xejye8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_06rl2yn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_15blp7i</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0enhwrt</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0r16e9l</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0xejye8</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_0ke258e">
           <bpmn:lane id="Lane_0xe43y8">
             <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
@@ -25,13 +25,13 @@
             <bpmn:flowNodeRef>Activity_1nrod2d</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_1q98jkk</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_19wp8n7</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Activity_0enhwrt</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_18kgp8q</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0coyczp</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Activity_0xejye8</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_06rl2yn</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_15blp7i</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Activity_0enhwrt</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_0r16e9l</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Activity_0xejye8</bpmn:flowNodeRef>
           </bpmn:lane>
         </bpmn:childLaneSet>
       </bpmn:lane>
@@ -74,11 +74,6 @@
       <bpmn:outgoing>Flow_0vl0a7i</bpmn:outgoing>
       <bpmn:signalEventDefinition id="SignalEventDefinition_0xr77da" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:task id="Activity_0enhwrt" name="Tanken">
-      <bpmn:incoming>Flow_0j16qe5</bpmn:incoming>
-      <bpmn:incoming>Flow_0vl0a7i</bpmn:incoming>
-      <bpmn:outgoing>Flow_0zh1jp1</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:endEvent id="Event_18kgp8q" name="wegfahren">
       <bpmn:incoming>Flow_079ad4v</bpmn:incoming>
     </bpmn:endEvent>
@@ -87,10 +82,6 @@
       <bpmn:outgoing>Flow_0j16qe5</bpmn:outgoing>
       <bpmn:outgoing>Flow_1pefk78</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Activity_0xejye8" name="Schlange stehen">
-      <bpmn:incoming>Flow_1pefk78</bpmn:incoming>
-      <bpmn:outgoing>Flow_1ysknft</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:eventBasedGateway id="Gateway_06rl2yn">
       <bpmn:incoming>Flow_1ysknft</bpmn:incoming>
       <bpmn:outgoing>Flow_1p2y6pw</bpmn:outgoing>
@@ -102,10 +93,19 @@
       <bpmn:timerEventDefinition id="TimerEventDefinition_0en2smh" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_1dziqrh" sourceRef="Event_15blp7i" targetRef="Activity_0j0mov5" />
-    <bpmn:task id="Activity_0r16e9l" name="bezahlen">
+    <bpmn:userTask id="Activity_0enhwrt" name="Tanken">
+      <bpmn:incoming>Flow_0j16qe5</bpmn:incoming>
+      <bpmn:incoming>Flow_0vl0a7i</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zh1jp1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0r16e9l" name="bezahlen">
       <bpmn:incoming>Flow_0zh1jp1</bpmn:incoming>
       <bpmn:outgoing>Flow_079ad4v</bpmn:outgoing>
-    </bpmn:task>
+    </bpmn:userTask>
+    <bpmn:manualTask id="Activity_0xejye8" name="Schlange stehen">
+      <bpmn:incoming>Flow_1pefk78</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ysknft</bpmn:outgoing>
+    </bpmn:manualTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1muait3">
@@ -140,10 +140,6 @@
           <dc:Bounds x="794" y="405" width="72" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0enhwrt_di" bpmnElement="Activity_0enhwrt">
-        <dc:Bounds x="780" y="170" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_18kgp8q_di" bpmnElement="Event_18kgp8q">
         <dc:Bounds x="1062" y="192" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -155,10 +151,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="594" y="155" width="72" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0xejye8_di" bpmnElement="Activity_0xejye8">
-        <dc:Bounds x="580" y="340" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_06rl2yn_di" bpmnElement="Gateway_06rl2yn">
         <dc:Bounds x="715" y="355" width="50" height="50" />
@@ -172,9 +164,14 @@
           <dc:Bounds x="713" y="520" width="53" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0r16e9l_di" bpmnElement="Activity_0r16e9l">
+      <bpmndi:BPMNShape id="Activity_1oebz8f_di" bpmnElement="Activity_0enhwrt">
+        <dc:Bounds x="780" y="170" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ow7hxx_di" bpmnElement="Activity_0r16e9l">
         <dc:Bounds x="920" y="170" width="100" height="80" />
-        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1nm7brd_di" bpmnElement="Activity_0xejye8">
+        <dc:Bounds x="580" y="340" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0u6i9b2_di" bpmnElement="Flow_0u6i9b2">
         <di:waypoint x="163" y="210" />
