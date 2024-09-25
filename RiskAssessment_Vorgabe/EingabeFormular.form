@@ -1,0 +1,155 @@
+{
+  "components": [
+    {
+      "label": "Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0s25pth",
+        "columns": 8
+      },
+      "id": "Field_0tybz5f",
+      "key": "clientName"
+    },
+    {
+      "label": "Your Email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0s25pth",
+        "columns": null
+      },
+      "id": "Field_1xlrc63",
+      "key": "clientEmail"
+    },
+    {
+      "label": "Income Last Year",
+      "type": "number",
+      "layout": {
+        "row": "Row_1ostjl3",
+        "columns": null
+      },
+      "id": "Field_1scctz4",
+      "key": "incomeLastYear",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Income This Year",
+      "type": "number",
+      "layout": {
+        "row": "Row_1ostjl3",
+        "columns": null
+      },
+      "id": "Field_1cln5kk",
+      "key": "incomeThisYear",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "values": [
+        {
+          "label": "Home",
+          "value": "Home"
+        },
+        {
+          "label": "Car",
+          "value": "Car"
+        },
+        {
+          "label": "Boat",
+          "value": "Boat"
+        },
+        {
+          "label": "Horse",
+          "value": "Horse"
+        },
+        {
+          "label": "Art",
+          "value": "Art"
+        },
+        {
+          "label": "None",
+          "value": "None"
+        }
+      ],
+      "label": "Your Current Assets",
+      "type": "taglist",
+      "layout": {
+        "row": "Row_1o2dd3k",
+        "columns": null
+      },
+      "id": "Field_1f0hale",
+      "key": "assets"
+    },
+    {
+      "values": [
+        {
+          "label": "Home",
+          "value": "Home"
+        },
+        {
+          "label": "Car",
+          "value": "Car"
+        },
+        {
+          "label": "Boat",
+          "value": "Boat"
+        },
+        {
+          "label": "Horse",
+          "value": "Horse"
+        },
+        {
+          "label": "Art",
+          "value": "Art"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        },
+        {
+          "label": "None",
+          "value": "None"
+        }
+      ],
+      "label": "Big Purchases This Year",
+      "type": "checklist",
+      "layout": {
+        "row": "Row_1ugxzh8",
+        "columns": 7
+      },
+      "id": "Field_0e1kwxb",
+      "key": "purchases",
+      "description": "What big things did you buy this year",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Describe \"Other\" Purchase",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1ugxzh8",
+        "columns": 9
+      },
+      "id": "Field_17ksqua",
+      "key": "otherPurchase",
+      "conditional": {
+        "hide": "=not(\"Other\" in purchases)"
+      },
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "RiskEingabeformular",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.26.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.21.0",
+  "schemaVersion": 16
+}

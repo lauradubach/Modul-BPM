@@ -1,0 +1,33 @@
+{
+  "components": [
+    {
+      "label": "Risk Rating",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1hox5zn",
+        "columns": null
+      },
+      "id": "Field_1xm41ay",
+      "key": "riskRating"
+    },
+    {
+      "label": "Risk Reason",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0vixtyv",
+        "columns": null
+      },
+      "id": "Field_1df1qto",
+      "key": "aiResponse"
+    }
+  ],
+  "type": "default",
+  "id": "AIResultForm",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.26.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.21.0",
+  "schemaVersion": 16
+}

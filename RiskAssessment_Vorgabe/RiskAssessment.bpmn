@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1pk7wc7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.26.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.21.0">
+  <bpmn:collaboration id="Collaboration_00yh7qg">
+    <bpmn:participant id="Participant_0roj0ut" name="Risk Assessment ITCNE24" processRef="Process_1nysywo" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1nysywo" name="RiskAssessment" isExecutable="true" camunda:historyTimeToLive="69">
+    <bpmn:startEvent id="StartEvent_1" name="Kredit nötig" camunda:formRef="RiskEingabeformular" camunda:formRefBinding="latest">
+      <bpmn:outgoing>Flow_1wnrur3</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:businessRuleTask id="Activity_1aucmlw" name="Entscheidung DMN" camunda:resultVariable="riskResults" camunda:decisionRef="run-risk-rules-0lpa6yf">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="riskScore">
+            <camunda:script scriptFormat="JavaScript">var risks = execution.getVariable("riskResults");
+var result = 0;
+for (var i = 0; i &lt; risks.length; i++) {
+    result += risks[i].score;
+}
+print("***" + result + "*** scores");
+result;</camunda:script>
+          </camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1wnrur3</bpmn:incoming>
+      <bpmn:outgoing>Flow_123whxn</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1wnrur3" sourceRef="StartEvent_1" targetRef="Activity_1aucmlw" />
+    <bpmn:sequenceFlow id="Flow_123whxn" sourceRef="Activity_1aucmlw" targetRef="Activity_0di6c8w" />
+    <bpmn:sequenceFlow id="Flow_1t3ldpp" sourceRef="Activity_0vxarit" targetRef="Event_15hqsib" />
+    <bpmn:sequenceFlow id="Flow_0rxrs25" name="Low" sourceRef="Gateway_0nh50hn" targetRef="Activity_0vxarit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${ riskScore &lt;= 40 }</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1nzq4y7" name="High" sourceRef="Gateway_0nh50hn" targetRef="Activity_1suyptf">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${ riskScore &gt;= 100 }</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0c0x86s" name="Medium" sourceRef="Gateway_0nh50hn" targetRef="Activity_1drmhyj" />
+    <bpmn:endEvent id="Event_15hqsib">
+      <bpmn:incoming>Flow_1t3ldpp</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1rgkxke" sourceRef="Activity_0di6c8w" targetRef="Gateway_0nh50hn" />
+    <bpmn:exclusiveGateway id="Gateway_0nh50hn" name="Pontential Risk?" default="Flow_0c0x86s">
+      <bpmn:incoming>Flow_1rgkxke</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rxrs25</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1nzq4y7</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0c0x86s</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_0di6c8w" name="Call Chat GPT" camunda:type="external" camunda:topic="CallAI">
+      <bpmn:incoming>Flow_123whxn</bpmn:incoming>
+      <bpmn:outgoing>Flow_1rgkxke</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_1drmhyj" name="Medium Risk">
+      <bpmn:incoming>Flow_0c0x86s</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1suyptf" name="High Risk">
+      <bpmn:incoming>Flow_1nzq4y7</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0vxarit" name="Low Risk">
+      <bpmn:incoming>Flow_0rxrs25</bpmn:incoming>
+      <bpmn:outgoing>Flow_1t3ldpp</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_00yh7qg">
+      <bpmndi:BPMNShape id="Participant_0roj0ut_di" bpmnElement="Participant_0roj0ut" isHorizontal="true">
+        <dc:Bounds x="160" y="77" width="920" height="453" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="232" y="159" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="222" y="202" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00b3a0q_di" bpmnElement="Activity_1aucmlw">
+        <dc:Bounds x="330" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_15hqsib_di" bpmnElement="Event_15hqsib">
+        <dc:Bounds x="962" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0nh50hn_di" bpmnElement="Gateway_0nh50hn" isMarkerVisible="true">
+        <dc:Bounds x="635" y="152" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="620" y="128" width="80" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ig5ggw_di" bpmnElement="Activity_0di6c8w">
+        <dc:Bounds x="480" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1pfqbp7_di" bpmnElement="Activity_1drmhyj">
+        <dc:Bounds x="800" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p7dv2e_di" bpmnElement="Activity_1suyptf">
+        <dc:Bounds x="800" y="390" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ac1jc3_di" bpmnElement="Activity_0vxarit">
+        <dc:Bounds x="800" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1wnrur3_di" bpmnElement="Flow_1wnrur3">
+        <di:waypoint x="268" y="177" />
+        <di:waypoint x="330" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_123whxn_di" bpmnElement="Flow_123whxn">
+        <di:waypoint x="430" y="177" />
+        <di:waypoint x="480" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1t3ldpp_di" bpmnElement="Flow_1t3ldpp">
+        <di:waypoint x="900" y="177" />
+        <di:waypoint x="962" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rxrs25_di" bpmnElement="Flow_0rxrs25">
+        <di:waypoint x="685" y="177" />
+        <di:waypoint x="800" y="177" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="696" y="159" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nzq4y7_di" bpmnElement="Flow_1nzq4y7">
+        <di:waypoint x="660" y="202" />
+        <di:waypoint x="660" y="430" />
+        <di:waypoint x="800" y="430" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="693" y="407" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0c0x86s_di" bpmnElement="Flow_0c0x86s">
+        <di:waypoint x="680" y="182" />
+        <di:waypoint x="680" y="300" />
+        <di:waypoint x="800" y="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="686" y="283" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rgkxke_di" bpmnElement="Flow_1rgkxke">
+        <di:waypoint x="580" y="177" />
+        <di:waypoint x="635" y="177" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
